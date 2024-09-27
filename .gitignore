@@ -1,0 +1,35 @@
+# file ga penting
+__init__.py
+__init__.pyc
+api.py
+api.pyc
+exceptions.py
+exceptions.pyc
+fields.py
+fields.pyc
+http.py
+http.pyc
+import_xml.rng
+loglevels.py
+loglevels.pyc
+models.py
+models.pyc
+netsvc.py
+netsvc.pyc
+PKG-INFO
+release.py
+release.pyc
+sql_db.py
+sql_db.pyc
+
+# folder ga penting
+cli
+conf
+modules
+osv
+report
+service
+tests
+tools
+workflow
+addons
