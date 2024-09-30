@@ -1,0 +1,126 @@
+<odoo>
+  <data>
+    <!-- Tree View -->
+    <record id="view_work_order_tree" model="ir.ui.view">
+        <field name="name">work.order.tree</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <tree string="Work Orders">
+                <field name="wo_number"/>
+                <field name="team_id"/>
+                <field name="team_leader_id"/>
+                <field name="planned_start"/>
+                <field name="planned_end"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- action -->
+    <record id="action_work_order" model="ir.actions.act_window">
+        <field name="name">Work Orders</field>
+        <field name="res_model">work.order</field>
+        <field name="view_mode">tree,form</field>
+    </record> 
+
+    <!-- Kanban View -->
+    <record id="view_work_order_kanban" model="ir.ui.view">
+        <field name="name">work.order.kanban</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="wo_number"/>
+                <field name="team_id"/>
+                <field name="planned_start"/>
+                <field name="planned_end"/>
+                <field name="state"/>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_work_order_form" model="ir.ui.view">
+        <field name="name">work.order.form</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <form string="Work Order">
+                <header>
+                    <button name="action_start_work" type="object" string="Start Work" states="pending"/>
+                    <button name="action_end_work" type="object" string="End Work" states="in_progress"/>
+                    <button name="action_reset_work" type="object" string="Reset" states="in_progress"/>
+                    <button name="action_cancel_work" type="object" string="Cancel"/>
+                </header>
+                <sheet>
+                    <group>
+                      <group>
+                        <field name="wo_number" readonly="1"/>
+                        <field name="booking_order_ref" readonly="1"/>
+                        <field name="team_id" required="1"/>
+                        <field name="team_leader_id" required="1"/>
+                        <field name="team_members" widget="many2many_tags"/>
+                      </group>
+                      <group>
+                        <field name="planned_start" required="1"/>
+                        <field name="planned_end" required="1"/>
+                        <field name="date_start" readonly="1"/>
+                        <field name="date_end" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                        <field name="notes"/>
+                      </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Calendar View -->
+    <record id="view_work_order_calendar" model="ir.ui.view">
+        <field name="name">work.order.calendar</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <calendar string="Work Order Calendar" date_start="planned_start" date_stop="planned_end">
+                <field name="wo_number"/>
+                <field name="team_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="view_work_order_graph" model="ir.ui.view">
+        <field name="name">work.order.graph</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <graph string="Work Order Statistics">
+                <field name="state" type="row"/>
+                <field name="team_id" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View -->
+    <record id="view_work_order_pivot" model="ir.ui.view">
+        <field name="name">work.order.pivot</field>
+        <field name="model">work.order</field>
+        <field name="arch" type="xml">
+            <pivot string="Work Order Analysis">
+                <field name="state" type="row"/>
+                <field name="team_id" type="col"/>
+                <field name="planned_start" type="measure"/>
+                <field name="planned_end" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action to open the views -->
+    <record id="action_work_order" model="ir.actions.act_window">
+        <field name="name">Work Order</field>
+        <field name="res_model">work.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+    </record>
+
+    <!-- Menu Item -->
+    <!-- <menuitem id="menu_work_order_root" name="Work Orders" parent="menu_service_team" action="action_work_order"/> -->
+    
+  </data>
+</odoo>

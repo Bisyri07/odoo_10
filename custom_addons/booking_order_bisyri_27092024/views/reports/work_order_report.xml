@@ -1,0 +1,20 @@
+<!-- report/work_order_report.xml -->
+<odoo>
+    <template id="work_order_report_template">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <h2>Work Order: <span t-esc="doc.wo_num"/></h2>
+                    <p><strong>Team Name:</strong> <span t-esc="doc.team_id.name"/></p>
+                    <p><strong>Customer:</strong> <span t-esc="doc.booking_order_ref.partner_id.name"/></p>
+                    <p><strong>Booking Order Ref:</strong> <span t-esc="doc.booking_order_ref.name"/></p>
+                    <p><strong>Date:</strong> 
+                        <span t-esc="doc.date_start"/> - <span t-esc="doc.date_end"/>
+                    </p>
+                    <p><strong>Notes:</strong> <span t-esc="doc.notes"/></p>
+                    <p><strong>Signature:</strong> _______________________</p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

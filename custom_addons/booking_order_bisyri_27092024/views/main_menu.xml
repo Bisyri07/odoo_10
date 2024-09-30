@@ -1,28 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <data>
-    <!-- Tampilan awal saat module booking order dibuka -->
-    <record id='service_team_tree' model='ir.ui.view'>
-      <field name='name'>Service Item Tree</field>
-      <field name='model'>service.team</field>
-      <field name='arch' type='xml'>
-        <tree string='service team Tree'>
-          <field name='team_name' optional="show"/>
-          <field name='team_leader' optional="show"/>
-          <field name='team_members' optional="show"/>
-        </tree>
-      </field>
-    </record>
-  </data>
+  <menuitem id="booking_menu" 
+          name="Booking" 
+          parent="sales_team.menu_sale_config" />
 
-  <!-- Menu navbar -->
-  <menuitem id='booking_order_root' name='Booking Order' sequence='0'>
-    <menuitem id='booking_order_menu' name='Booking Order Menu'>
-      <menuitem 
-        id='service_team_menu_action'
-        action='service_team_action'
-      />  
-    </menuitem>
-  </menuitem>
+  <menuitem 
+  id="menu_booking_order" 
+  name="Booking Order" 
+  parent="booking_menu" 
+  action="action_booking_order_inherit"
+  sequence="25"
+  />      
+
+  <menuitem 
+  id="menu_work_order" 
+  name="Work Orders" 
+  parent="booking_menu" 
+  action="action_work_order"
+  sequence="50"
+  />      
+
+  <menuitem 
+  id="menu_service_team" 
+  name="Service Team"
+  parent="booking_menu" 
+  action="action_service_team"
+  sequence="100"
+  />
+  
 
 </odoo>
