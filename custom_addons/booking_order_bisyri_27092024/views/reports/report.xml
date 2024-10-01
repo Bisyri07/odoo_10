@@ -1,12 +1,13 @@
-<!-- report/report.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <data>
     <report
-        id="action_work_order_report"
-        model="work.order"
-        string="Work Order Report"
-        report_type="qweb-pdf"
-        name="your_module_name.work_order_report_template"
-        file="your_module_name.work_order_report_template"
-        print_report_name="'Work Order - %s' % (object.wo_num)"
+      id="action_work_order_report"
+      model="work.order"
+      string="Work Order"
+      report_type="qweb-pdf"
+      name="booking_order_bisyri_27092024.work_order_report" 
+      file="booking_order_bisyri_27092024.work_order_report" 
     />
+  </data>
 </odoo>

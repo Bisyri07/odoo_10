@@ -1,6 +1,6 @@
 from odoo import models, fields, api # type: ignore
 from odoo.exceptions import UserError # type: ignore
-from datetime import datetime
+
 
 class WorkOrder(models.Model):
     _name = 'work.order'
@@ -8,20 +8,21 @@ class WorkOrder(models.Model):
 
     wo_number = fields.Char(string='WO Number', readonly=True, default='New')
     booking_order_ref = fields.Many2one('sale.order', string='Booking Order Reference', readonly=True)
-    team_id = fields.Many2one('service.team', string='Team', required=True)
+    team_id = fields.Many2one('service.team', string='Team', required=True, ondelete='cascade')
     team_leader_id = fields.Many2one('res.users', string='Team Leader', required=True)
     team_members = fields.Many2many('res.users', string='Team Members')
     planned_start = fields.Datetime(string='Planned Start', required=True)
     planned_end = fields.Datetime(string='Planned End', required=True)
     date_start = fields.Datetime(string='Date Start', readonly=True)
     date_end = fields.Datetime(string='Date End', readonly=True)
+    notes = fields.Text(string='Notes')
+    booking_order_reference = fields.Many2one('sale.order', string="Booking Order Reference")
     state = fields.Selection([
         ('pending', 'Pending'),
         ('in_progress', 'In Progress'),
         ('done', 'Done'),
         ('cancelled', 'Cancelled')
     ], string='State', default='pending', track_visibility='onchange')
-    notes = fields.Text(string='Notes')
 
     @api.model
     def create(self, vals):
@@ -52,9 +53,15 @@ class WorkOrder(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'Cancel Work Order',
             'view_mode': 'form',
-            'res_model': 'cancel.wizard',
+            'res_model': 'work.order.cancel.wizard',
             'target': 'new',
             'context': {
                 'default_work_order_id': self.id
             }
         }
+    
+    @api.multi
+    def render_html(self, docids, data=None):
+        docs = self.env['work.order'].browse(docids)
+        return self.env['report'].render('booking_order_bisyri_27092024.work_order_report', {'docs': docs})
+
