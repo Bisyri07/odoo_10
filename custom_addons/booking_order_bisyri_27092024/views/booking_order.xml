@@ -39,6 +39,10 @@
       <field name="model">sale.order</field>
       <field name="arch" type="xml">
           <form string="Booking Orders">
+              <header>
+                <button name='action_confirm' type='object' string='Confirm' class='oe_highlight'/>
+                <button name='action_check_availability' type='object' string='Check' class='oe_highlight'/>
+              </header>
               <sheet>
                 <group>
                   <group>

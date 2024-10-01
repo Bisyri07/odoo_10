@@ -8,6 +8,6 @@ class ServiceTeam(models.Model):
     team_name = fields.Char(string='Team Name', required=True)
     team_leader = fields.Many2one('res.users', string='Team Leader', required=True)
     team_members = fields.Many2many('res.users', string='Team Members')
-
+    active = fields.Boolean(string='Active', default=True)
 
     
